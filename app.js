@@ -41,6 +41,13 @@ app.get("/blog/:post", (req, res) => {
     res.status(404).redirect("/404");
   }
 });
+app.get("/404", (req, res) => {
+  res.status(404);
+  res.render('default-layout', {
+     title: "Page Not Found",
+     content: "<h1>Sorry!</h1><h3>We can't find the page you're requesting.</h3>"
+  });
+});
 app.get('/contact', (req, res) => {
   res.render('contact', {
      title: "Contact Me"
@@ -55,6 +62,9 @@ app.get('/', (req, res) => {
       title: "Default Layout",
       content: "<h1>This is the default layout</h1>"
    });
+});
+app.all('/*path', (req, res) => {
+  res.status(404).redirect("/404");
 });
 
 // START THE SERVER
